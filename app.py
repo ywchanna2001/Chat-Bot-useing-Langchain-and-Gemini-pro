@@ -85,7 +85,7 @@ def main():
 
     # Display the Gemini logo
     st.image("gemini_logo.jpg", width=700)
-    st.markdown('<div class="main-header">Chat with PDFs using Gemini 💁</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">Chat with PDFs📑 using Gemini🤖</div>', unsafe_allow_html=True)
 
     user_question = st.text_input("🔍 **Ask a Question from the PDF Files**")
 
@@ -102,7 +102,7 @@ def main():
                 get_vector_store(text_chunks)
                 st.success("✅ Done")
 
-    st.markdown('<div class="footer">Developed with ❤️ using Gemini AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">Developed with 🧑‍💻 using Gemini AI</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
