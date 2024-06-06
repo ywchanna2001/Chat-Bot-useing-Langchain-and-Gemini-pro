@@ -54,28 +54,55 @@ def user_input(user_question):
         docs = new_db.similarity_search(user_question)
         chain = get_conversational_chain()
         response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
-        st.write("Reply: ", response["output_text"])
+        st.write("💬 **Reply:** ", response["output_text"])
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
 def main():
-    st.set_page_config(page_title="Chat PDF")
-    st.header("Chat with PDF using Gemini💁")
+    st.set_page_config(page_title="Chat with PDFs 📚", page_icon="💬")
 
-    user_question = st.text_input("Ask a Question from the PDF Files")
+    # Custom CSS
+    st.markdown("""
+        <style>
+            .main-header {
+                font-size: 40px;
+                color: #4CAF50;
+                text-align: center;
+            }
+            .sub-header {
+                font-size: 20px;
+                color: #888888;
+                text-align: center;
+            }
+            .footer {
+                font-size: 14px;
+                color: #888888;
+                text-align: center;
+                margin-top: 50px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Display the Gemini logo
+    st.image("gemini_logo.jpg", width=700)
+    st.markdown('<div class="main-header">Chat with PDFs using Gemini 💁</div>', unsafe_allow_html=True)
+
+    user_question = st.text_input("🔍 **Ask a Question from the PDF Files**")
 
     if user_question:
         user_input(user_question)
 
     with st.sidebar:
-        st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
+        st.title("📂 **Menu**")
+        pdf_docs = st.file_uploader("📄 **Upload your PDF Files and Click on the Submit & Process Button**", accept_multiple_files=True)
         if st.button("Submit & Process"):
-            with st.spinner("Processing..."):
+            with st.spinner("⚙️ Processing..."):
                 raw_text = get_pdf_text(pdf_docs)
                 text_chunks = get_text_chunks(raw_text)
                 get_vector_store(text_chunks)
-                st.success("Done")
+                st.success("✅ Done")
+
+    st.markdown('<div class="footer">Developed with ❤️ using Gemini AI</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
